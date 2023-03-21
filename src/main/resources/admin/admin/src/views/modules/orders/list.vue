@@ -208,6 +208,8 @@
 					:style='{"padding":"0","margin":"20px 0 0","whiteSpace":"nowrap","color":"#333","textAlign":"center","width":"100%","fontWeight":"500"}'
 				></el-pagination>
 			<!-- </div> -->
+          <inputbox :caption="caption" :show="showInput" :value="inputValue" @close="showInput=false" @confirm="inputBoxYes" @cancel="showInput=false">
+          </inputbox>
 		</template>
 		
 		<!-- 添加/修改页面  将父组件的search方法传递给子组件-->
@@ -323,9 +325,17 @@
 import * as echarts from 'echarts'
 import axios from 'axios'
 import AddOrUpdate from "./add-or-update";
+import Inputbox from "./inputbox";
 export default {
   data() {
     return {
+      inputValue:'',
+      caption: '',
+      msgText: '',       
+      showMsgBox : false,
+      showMsgShow: false,
+      showInput: false,
+      row:{},
       searchForm: {
         key: ""
       },
@@ -417,6 +427,7 @@ export default {
   },
   components: {
     AddOrUpdate,
+    Inputbox
   },
   methods: {
 
@@ -436,17 +447,19 @@ export default {
       }
       return temp
     },
-    updateHandler(row) {
-      this.$confirm(`确定进行发货操作?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        row.status = "已发货";
+    inputBoxYes(value){
+      console.log(value);
+      this.showInput = false;
+
+      this.caption = "提示";
+      this.msgText = "您输入的值是【" + value + "】";
+      this.showMsgShow = true;
+      this.row.status = "已发货";
+      this.row.expressBill = value;
         this.$http({
           url: `orders/update`,
           method: "post",
-          data: row
+          data: this.row
         }).then(({ data }) => {
           if (data && data.code === 0) {
             this.$message({
@@ -461,7 +474,40 @@ export default {
              this.$message.error(data.msg);
           }
         });
-      });
+
+    },
+    updateHandler(row) {
+      this.caption = "请输入";
+      this.inputValue = "快递单号";
+      this.showInput = true;
+      this.row = row;
+      // this.Inputbox();
+      
+      // this.$confirm(`确定进行发货操作?`, "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      //   type: "warning"
+      // }).then(() => {
+      //   row.status = "已发货";
+      //   this.$http({
+      //     url: `orders/update`,
+      //     method: "post",
+      //     data: row
+      //   }).then(({ data }) => {
+      //     if (data && data.code === 0) {
+      //       this.$message({
+      //         message: "操作成功",
+      //         type: "success",
+      //         duration: 1500,
+      //         onClose: () => {
+      //           this.search();
+      //         }
+      //       });
+      //     } else {
+      //        this.$message.error(data.msg);
+      //     }
+      //   });
+      // });
     },
     updateHandler2(row) {
       this.$confirm(`确定已收货?`, "提示", {

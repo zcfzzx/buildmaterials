@@ -88,7 +88,8 @@
 							{{scope.row.vip}}
 						</template>
 					</el-table-column>
-					<el-table-column :resizable='true' :sortable='false' prop="shhf" label="审核回复"></el-table-column>
+
+<!--					<el-table-column :resizable='true' :sortable='false' prop="shhf" label="审核回复"></el-table-column>
 					<el-table-column :resizable='true' :sortable='false' prop="sfsh" label="审核状态">
 						<template slot-scope="scope">
 							<span style="margin-right:10px" v-if="scope.row.sfsh=='是'">通过</span>
@@ -100,7 +101,8 @@
 						<template slot-scope="scope">
 							<el-button  type="text" size="small" @click="shDialog(scope.row)">审核</el-button>
 						</template>
-					</el-table-column>
+					</el-table-column>-->
+
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('yonghu','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>

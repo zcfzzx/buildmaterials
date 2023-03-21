@@ -67,19 +67,19 @@ export default {
 <style lang="scss" scoped>
 	.el-breadcrumb {
 		& /deep/ .el-breadcrumb__separator {
-		  		  margin: 0 9px;
-		  		  color: #000;
-		  		  font-weight: 500;
-		  		}
+margin: 0 9px;
+color: #000;
+font-weight: 500;
+}
 		
 		& /deep/ .el-breadcrumb__inner a {
-		  		  color: #000;
-		  		  display: inline-block;
-		  		}
+ color: #000;
+display: inline-block;
+}
 		
 		& /deep/ .el-breadcrumb__inner {
-		  		  color: #000;
-		  		  display: inline-block;
-		  		}
+ color: #000;
+ display: inline-block;
+}
 	}
 </style>

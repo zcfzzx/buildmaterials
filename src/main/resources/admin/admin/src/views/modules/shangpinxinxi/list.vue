@@ -19,22 +19,24 @@
 					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}' :label="'至'">
 						<el-input v-model="searchForm.priceend" placeholder="最大价格" clearable></el-input>
 					</div>
-					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}' class="select">
-						<label :style='{"margin":"0 10px 0 0","color":"#000","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">是否通过</label>
-						<el-select  @change="sfshChange" clearable v-model="searchForm.sfsh" placeholder="是否通过">
-							<el-option v-for="(item,index) in sfshOptions" v-bind:key="index" :label="item" :value="item"></el-option>
-						</el-select>
-					</div>
+<!--					<div :style='{"margin":"0 20px 0 0","display":"inline-block"}' class="select">-->
+<!--						<label :style='{"margin":"0 10px 0 0","color":"#000","display":"inline-block","lineHeight":"40px","fontSize":"14px","fontWeight":"500","height":"40px"}' class="item-label">是否通过</label>-->
+<!--                        &lt;!&ndash;	@change="sfshChange"	&ndash;&gt;-->
+<!--                        <el-select clearable v-model="searchForm.sfsh" placeholder="是否通过">-->
+<!--							<el-option v-for="(item,index) in sfshOptions" v-bind:key="index" :label="item" :value="item"></el-option>-->
+<!--						</el-select>-->
+<!--					</div>-->
 					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"100px","fontSize":"14px","backgroundSize":"100% 100%","lineHeight":"60px","height":"60px"}' type="success" @click="search()">查询</el-button>
 				</el-row>
 
 				<el-row :style='{"margin":"20px 0","display":"flex"}'>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}' v-if="isAuth('shangpinxinxi','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}' v-if="isAuth('shangpinxinxi','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
-
-
-
-
+                    <span v-if="this.roleFlag != '管理员'">
+                        <el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}'
+                                   v-if="isAuth('shangpinxinxi','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
+                        <el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}'
+                                   v-if="isAuth('shangpinxinxi','删除')" :disabled="dataListSelections.length <= 0"
+                                   type="danger" @click="deleteHandler()">删除</el-button>
+                    </span>
 				</el-row>
 			</el-form>
 			
@@ -127,29 +129,43 @@
 							{{scope.row.vipprice}}
 						</template>
 					</el-table-column>
-					<el-table-column :resizable='true' :sortable='false' prop="shhf" label="审核回复"></el-table-column>
-					<el-table-column :resizable='true' :sortable='false' prop="sfsh" label="审核状态">
+					<el-table-column :resizable='true' :sortable='false' prop="shhf" label="反馈原因"></el-table-column>
+					<el-table-column :resizable='true' :sortable='false' prop="sfsh" label="上架状态">
 						<template slot-scope="scope">
-							<span style="margin-right:10px" v-if="scope.row.sfsh=='是'">通过</span>
-							<span style="margin-right:10px" v-if="scope.row.sfsh=='否'">未通过</span>
-							<span style="margin-right:10px" v-if="scope.row.sfsh=='待审核'">待审核</span>
+							<span style="margin-right:10px" v-if="scope.row.sfsh=='是'">上架</span>
+							<span style="margin-right:10px" v-if="scope.row.sfsh=='否'">下架</span>
 						</template>
 					</el-table-column>
-					<el-table-column :resizable='true' :sortable='false' v-if="isAuth('shangpinxinxi','审核')" prop="sfsh" label="审核">
-						<template slot-scope="scope">
-							<el-button  type="text" size="small" @click="shDialog(scope.row)">审核</el-button>
-						</template>
+
+                    <!-- 管理员下架  否是下架，是 是上架  -->
+                    <span v-if="this.roleFlag == '管理员'">
+                        <el-table-column :resizable='true' :sortable='false' prop="sfsh" label="商品上下架" width="95">
+                            <template slot-scope="scope">
+                                <span style="margin-right:10px" v-if="scope.row.sfsh=='否'">待上架</span>
+                                <span v-else>
+                                    <el-button  type="text" size="small" @click="shDialog(scope.row,'down')">下架</el-button>
+                                </span>
+                            </template>
 					</el-table-column>
+                    </span>
+                    <!-- 商家上架  -->
+                    <span v-else>
+                        <el-table-column :resizable='true' :sortable='false' prop="sfsh" label="商品上下架" width="95">
+                            <template slot-scope="scope">
+                                 <span style="margin-right:10px" v-if="scope.row.sfsh=='是'">待下架</span>
+                                <sapn v-else>
+                                    <el-button  type="text" size="small" @click="shDialog(scope.row,'up')">重新上架</el-button>
+                                </sapn>
+
+                            </template>
+					    </el-table-column>
+                    </span>
+
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('shangpinxinxi','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('shangpinxinxi','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
-
-
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('shangpinxinxi','查看评论')" type="primary" size="mini" @click="disscussListHandler(scope.row.id)">查看评论</el-button>
-
-
-
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('shangpinxinxi','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
 						</template>
 					</el-table-column>
@@ -175,16 +191,15 @@
 		<add-or-update v-if="addOrUpdateFlag" :parent="this" ref="addOrUpdate"></add-or-update>
 
 
-		<el-dialog title="审核" :visible.sync="sfshVisiable" width="50%">
+		<el-dialog :title="updownTitle" :visible.sync="sfshVisiable" width="50%">
 			<el-form ref="form" :model="form" label-width="80px">
-				<el-form-item label="审核状态">
-					<el-select v-model="shForm.sfsh" placeholder="审核状态">
-						<el-option label="通过" value="是"></el-option>
-						<el-option label="不通过" value="否"></el-option>
-						<el-option label="待审核" value="待审核"></el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="内容">
+<!--				<el-form-item label="请选择">-->
+<!--					<el-select v-model="shForm.sfsh">-->
+<!--						<el-option label="上架" value="是"></el-option>-->
+<!--						<el-option label="下架" value="否"></el-option>-->
+<!--					</el-select>-->
+<!--				</el-form-item>-->
+				<el-form-item label="备注原因">
 					<el-input type="textarea" :rows="8" v-model="shForm.shhf"></el-input>
 				</el-form-item>
 			</el-form>
@@ -217,6 +232,7 @@ export default {
       dataListSelections: [],
       showFlag: true,
       sfshVisiable: false,
+      updownTitle:undefined,
       shForm: {},
       chartVisiable: false,
       chartVisiable1: false,
@@ -225,8 +241,8 @@ export default {
       chartVisiable4: false,
       chartVisiable5: false,
       addOrUpdateFlag:false,
+      roleFlag:undefined,
       layouts: ["total","prev","pager","next","sizes","jumper"],
-
     };
   },
   created() {
@@ -245,7 +261,6 @@ export default {
     AddOrUpdate,
   },
   methods: {
-
     contentStyleChange() {
       this.contentPageStyleChange()
     },
@@ -265,15 +280,11 @@ export default {
       // this.contents.pageEachNum = 10
     },
 
-
-
-
-
-
-
-
     init () {
         this.sfshOptions = "是,否,待审核".split(',');
+        let flag = localStorage.getItem("role");
+        flag = flag.substr(1,3);
+        this.roleFlag = flag;
     },
     search() {
       this.pageIndex = 1;
@@ -393,7 +404,7 @@ export default {
 	this.$router.push({path:'/discussshangpinxinxi',query:{refid:id}});
     },
     // 审核窗口
-    shDialog(row){
+    shDialog(row,upAndDown){
       this.sfshVisiable = !this.sfshVisiable;
       if(row){
         this.shForm = {
@@ -406,21 +417,30 @@ export default {
           shangjiazhanghao: row.shangjiazhanghao,
           shangjiamingcheng: row.shangjiamingcheng,
           sfsh: row.sfsh,
+            jf: row.jf,
           shhf: row.shhf,
-          jf: row.jf,
           price: row.price,
           vipprice: row.vipprice,
           id: row.id
         }
+          if(upAndDown == 'up'){
+              this.shForm.sfsh = '是';
+              this.updownTitle = '商品上架';
+          }else{
+              this.updownTitle = '商品下架';
+              this.shForm.sfsh = '否';
+          }
+        console.log(this.shForm);
       }
     },
-    // 审核
+    // 上下架
     shHandler(){
       this.$confirm(`确定操作?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
+          console.log(this.shForm);
         this.$http({
           url: "shangpinxinxi/update",
           method: "post",

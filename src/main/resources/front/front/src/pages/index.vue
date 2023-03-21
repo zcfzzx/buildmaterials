@@ -1,8 +1,10 @@
 <template>
 	<div class="main-containers">
-		<div class="top-container" :style='{"boxShadow":"0 0px 0px rgba(64, 158, 255, .3)","padding":"0 20px 0 120px","borderColor":"#936837","alignItems":"center","display":"flex","justifyContent":"space-between","overflow":"hidden","top":"0","left":"0","background":"url(http://codegen.caihongy.cn/20230208/b3d599c40b114881b081c4468440bae5.png) no-repeat center bottom,#f6f5f3","borderWidth":"10px 0 0","width":"100%","position":"fixed","borderStyle":"solid","height":"64px","zIndex":"1002"}'>
+		<div class="top-container" :style='{"boxShadow":"0 0px 0px rgba(64, 158, 255, .3)","padding":"0 20px 0 120px","borderColor":"#936837","alignItems":"center","display":"flex","justifyContent":"space-between","overflow":"hidden","top":"0","left":"0","background":"url(http://codegen.caihongy.cn/20230208/b3d599c40b114881b081c4468440bae5.png) no-repeat center bottom,#f6f5f3","borderWidth":"10px 0 0","width":"100%","position":"fixed","borderStyle":"solid","height":"75px","zIndex":"1002"}'>
 			<img v-if='false' :style='{"width":"44px","objectFit":"cover","borderRadius":"100%","display":"block","height":"44px"}' src='http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg'>
-			<div v-if="true" :style='{"color":"#000","fontSize":"18px"}'>装修建材商城</div>
+			<div v-if="true" :style='{"color":"#000","fontSize":"18px"}'>
+                <img src="http://localhost:8080/springbootq4h82/upload/logo.png" alt="" style="z-index: 1009;width: 125px">
+            </div>
 			<div>
 				<div v-if="false" :style='{"color":"#555","fontSize":"14px","display":"inline-block"}'>0753-1234567</div>
 				<div v-if="Token" :style='{"color":"#555","fontSize":"14px","display":"inline-block"}'>{{username}}</div>
@@ -10,10 +12,9 @@
                 <el-button v-if="Token" @click="logout" :style='{"border":"0","padding":"0 10px","margin":"0 0 0 10px","color":"#000","borderRadius":"0","background":"none","display":"inline-block","fontSize":"14px","lineHeight":"32px","height":"32px"}'>退出</el-button>
 			</div>
 		</div>
-		
-		
+
 		<div class="body-containers" :style='"horizontal" == "vertical" ? {"minHeight":"100vh","padding":"64px 0 0","margin":"0 0 0 210px","position":"relative","background":"rgba(64, 158, 255, .3)","display":"block"} : {"minHeight":"100vh","padding":"0 0 10px","margin":"0","position":"relative","background":"#fff"}'>
-			<div class="menu-preview" :style='{"padding":"0 20px","borderColor":"#efefef","top":"64px","background":"url(http://codegen.caihongy.cn/20230208/02f74f9b2e6f44a3ace848f090a2bfaf.png) no-repeat center bottom","borderWidth":"0","display":"flex","width":"100%","position":"fixed","borderStyle":"solid","justifyContent":"center","height":"64px","zIndex":"999"}'>
+			<div class="menu-preview" :style='{"padding":"0 20px","borderColor":"#efefef","top":"75px","background":"url(http://codegen.caihongy.cn/20230208/02f74f9b2e6f44a3ace848f090a2bfaf.png) no-repeat center bottom","borderWidth":"0","display":"flex","width":"100%","position":"fixed","borderStyle":"solid","justifyContent":"center","height":"64px","zIndex":"999"}'>
 				<el-menu class="el-menu-horizontal-demo" :style='{"border":0,"padding":"0","listStyle":"none","margin":"0","position":"relative","background":"none"}' :default-active="activeIndex" :unique-opened="true" mode="horizontal" :router="true" @select="handleSelect">
 					<el-image v-if="false" :style='{"width":"44px","margin":"8px 10px 8px 0","objectFit":"cover","borderRadius":"100%","float":"left","height":"44px"}' src="http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg" fit="cover"></el-image>
 					<el-menu-item v-for="(menu, index) in menuList" :index="index + ''" :key="index" :route="menu.url">

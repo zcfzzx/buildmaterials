@@ -52,8 +52,6 @@ public class YonghuController {
     @Autowired
     private YonghuService yonghuService;
 
-
-    
 	@Autowired
 	private TokenService tokenService;
 	
@@ -68,7 +66,7 @@ public class YonghuController {
 			return R.error("账号或密码不正确");
 		}
 		
-        if(!"是".equals(u.getSfsh())) return R.error("账号已锁定，请联系管理员审核。");
+//        if(!"是".equals(u.getSfsh())) return R.error("账号已锁定，请联系管理员审核。");
 		String token = tokenService.generateToken(u.getId(), username,"yonghu",  "用户" );
 		return R.ok().put("token", token);
 	}

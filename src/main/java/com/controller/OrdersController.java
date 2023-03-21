@@ -163,7 +163,7 @@ public class OrdersController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @RequestMapping(value="/update",produces = {"application/json;charset=UTF-8"})
     @Transactional
     public R update(@RequestBody OrdersEntity orders, HttpServletRequest request){
         //ValidatorUtils.validateEntity(orders);

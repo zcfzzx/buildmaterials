@@ -170,8 +170,17 @@ public class OrdersEntity<T> implements Serializable {
 	 */
 					
 	private String goodtype;
-	
-	
+
+	private String expressBill;
+
+	public String getExpressBill() {
+		return expressBill;
+	}
+
+	public void setExpressBill(String expressBill) {
+		this.expressBill = expressBill;
+	}
+
 	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat
 	private Date addtime;

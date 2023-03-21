@@ -25,6 +25,7 @@
         <result property="logistics" column="logistics"/>
         <result property="shangjiazhanghao" column="shangjiazhanghao"/>
         <result property="goodtype" column="goodtype"/>
+        <result property="expressBill" column="express_bill"/>
     </resultMap>
 
 	<select id="selectListVO"

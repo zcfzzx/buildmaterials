@@ -46,6 +46,56 @@
 		SELECT  orders.* FROM orders  orders 	        
         <where> 1=1 ${ew.sqlSegment}</where>
 	</select>
+
+    <select id="selectStatisticsMonthCostByUserId"
+            resultType="float" >
+
+        select sum(t.discounttotal) from orders t
+        <where>
+            t.userid=${userid} and t.status in('已完成','已发货','已支付')
+            and DATE_FORMAT( addtime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        </where>
+    </select>
+
+    <select id="selectStatisticsYearCostByUserId"
+            resultType="float" >
+
+        select sum(t.discounttotal) from orders t
+        <where>
+         t.userid=${userid} and t.status in('已完成','已发货','已支付')
+         and YEAR(addtime)=YEAR(NOW())
+        </where>
+    </select>
+
+    <select id="selectStatisticsYearBuynumByShangjia"
+            resultType="float" >
+
+        select sum(t.buynumber) from orders t left join shangpinxinxi s on(t.goodid = s.id)
+        <where> s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
+              and YEAR(t.addtime)=YEAR(NOW())
+        </where>
+
+    </select>
+
+    <select id="selectStatisticsMonthBuynumByShangjia"
+            resultType="float" >
+
+        select sum(t.buynumber) from orders t left join shangpinxinxi s on(t.goodid = s.id)
+        <where> s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
+          and DATE_FORMAT( t.addtime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        </where>
+
+    </select>
+
+
+    <select id="selectStatistics"
+            resultType="com.entity.vo.OrdersVO" >
+
+        select sum(t.buynumber) as count ,sum(t.discounttotal) as discounttotal from orders t
+        <where>
+            t.status in('已完成','已发货','已支付')
+        </where>
+    </select>
 	
 	<select id="selectView"
 		resultType="com.entity.view.OrdersView" >

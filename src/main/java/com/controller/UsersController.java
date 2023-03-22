@@ -125,6 +125,7 @@ public class UsersController{
         UsersEntity user = userService.selectById(id);
         return R.ok().put("data", user);
     }
+
     
     /**
      * 获取用户的session用户信息

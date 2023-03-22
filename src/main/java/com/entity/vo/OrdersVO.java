@@ -135,7 +135,12 @@ public class OrdersVO  implements Serializable {
 	 */
 	
 	private String goodtype;
-				
+
+	/**
+	 * 销售总数
+	 */
+	private int count;
+
 	
 	/**
 	 * 设置：商品表名

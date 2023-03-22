@@ -2,11 +2,14 @@ package com.dao;
 
 import com.entity.OrdersEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
+import com.entity.view.YonghuView;
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.OrdersVO;
 import com.entity.view.OrdersView;
@@ -38,6 +41,13 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 
     List<Map<String, Object>> selectGroup(@Param("params") Map<String, Object> params,@Param("ew") Wrapper<OrdersEntity> wrapper);
 
+	float selectStatisticsMonthCostByUserId(@Param("userid") Long userid);
 
+	float selectStatisticsYearCostByUserId(@Param("userid") Long userid);
 
+	int selectStatisticsMonthBuynumByShangjia(@Param("shangjia") String shangjia);
+
+	int selectStatisticsYearBuynumByShangjia(@Param("shangjia") String shangjia);
+
+	OrdersVO selectStatistics();
 }

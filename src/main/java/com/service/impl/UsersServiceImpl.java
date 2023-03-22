@@ -5,6 +5,7 @@ package com.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.entity.ShangjiaEntity;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -45,5 +46,12 @@ public class UsersServiceImpl extends ServiceImpl<UsersDao, UsersEntity> impleme
 	        page.setRecords(baseMapper.selectListView(page,wrapper));
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
+	}
+
+	@Override
+	public int selectUserCount() {
+		//查询用户数量
+		EntityWrapper<UsersEntity> ew = new EntityWrapper<UsersEntity>();
+		return baseMapper.selectCount(ew);
 	}
 }

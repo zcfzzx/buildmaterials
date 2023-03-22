@@ -2,6 +2,7 @@ package com.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.IService;
+import com.entity.view.YonghuStaticView;
 import com.utils.PageUtils;
 import com.entity.YonghuEntity;
 import java.util.List;
@@ -31,7 +32,7 @@ public interface YonghuService extends IService<YonghuEntity> {
    	YonghuView selectView(@Param("ew") Wrapper<YonghuEntity> wrapper);
    	
    	PageUtils queryPage(Map<String, Object> params,Wrapper<YonghuEntity> wrapper);
-   	
 
+	YonghuStaticView getStatistics(long id);
 }
 

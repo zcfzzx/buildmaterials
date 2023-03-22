@@ -1,5 +1,8 @@
 package com.service.impl;
 
+import com.dao.OrdersDao;
+import com.entity.view.ShangjiaStatisticView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.List;
@@ -20,7 +23,9 @@ import com.entity.view.ShangjiaView;
 
 @Service("shangjiaService")
 public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity> implements ShangjiaService {
-	
+
+	@Autowired
+	private OrdersDao ordersDao;
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -38,8 +43,15 @@ public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-    
-    @Override
+
+	@Override
+	public int shangjiaCount() {
+		//查询商家数量
+		EntityWrapper<ShangjiaEntity> ew = new EntityWrapper<ShangjiaEntity>();
+		return baseMapper.selectCount(ew);
+	}
+
+	@Override
 	public List<ShangjiaVO> selectListVO(Wrapper<ShangjiaEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}
@@ -52,6 +64,17 @@ public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity
 	@Override
 	public List<ShangjiaView> selectListView(Wrapper<ShangjiaEntity> wrapper) {
 		return baseMapper.selectListView(wrapper);
+	}
+
+	@Override
+	public ShangjiaStatisticView selectStatistic(String shangjiazhanghao) {
+		//统计商家本周，当月，今年销售数量
+		int monthBuynumber = ordersDao.selectStatisticsMonthBuynumByShangjia(shangjiazhanghao);
+		int yearBuynumber = ordersDao.selectStatisticsYearBuynumByShangjia(shangjiazhanghao);
+		ShangjiaStatisticView view = new ShangjiaStatisticView();
+		view.setMonthNum(monthBuynumber);
+		view.setYearNum(yearBuynumber);
+		return view;
 	}
 
 	@Override

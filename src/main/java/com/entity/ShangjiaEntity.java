@@ -122,6 +122,10 @@ public class ShangjiaEntity<T> implements Serializable {
 	@DateTimeFormat
 	private Date addtime;
 
+	public ShangjiaEntity(String shangjiazhanghao) {
+		this.shangjiazhanghao = shangjiazhanghao;
+	}
+
 	public Date getAddtime() {
 		return addtime;
 	}

@@ -26,7 +26,9 @@ public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity
 
 	@Autowired
 	private OrdersDao ordersDao;
-	
+
+
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<ShangjiaEntity> page = this.selectPage(
@@ -43,12 +45,16 @@ public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity
 	    	PageUtils pageUtil = new PageUtils(page);
 	    	return pageUtil;
  	}
-
 	@Override
 	public int shangjiaCount() {
 		//查询商家数量
 		EntityWrapper<ShangjiaEntity> ew = new EntityWrapper<ShangjiaEntity>();
 		return baseMapper.selectCount(ew);
+	}
+
+	@Override
+	public ShangjiaEntity getByZhangHao(String shangjiazhanghao){
+		return baseMapper.selectOne(new ShangjiaEntity(shangjiazhanghao));
 	}
 
 	@Override

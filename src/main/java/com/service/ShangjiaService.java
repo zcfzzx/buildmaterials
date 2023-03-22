@@ -24,6 +24,8 @@ public interface ShangjiaService extends IService<ShangjiaEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
    	List<ShangjiaVO> selectListVO(Wrapper<ShangjiaEntity> wrapper);
+
+	ShangjiaEntity getByZhangHao(String shangjiazhanghao);
    	
    	ShangjiaVO selectVO(@Param("ew") Wrapper<ShangjiaEntity> wrapper);
    	

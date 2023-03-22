@@ -2,6 +2,7 @@ package com.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.IService;
+import com.entity.vo.ShangjiaxinxiVo;
 import com.utils.PageUtils;
 import com.entity.ShangpinxinxiEntity;
 import java.util.List;
@@ -31,7 +32,7 @@ public interface ShangpinxinxiService extends IService<ShangpinxinxiEntity> {
    	ShangpinxinxiView selectView(@Param("ew") Wrapper<ShangpinxinxiEntity> wrapper);
    	
    	PageUtils queryPage(Map<String, Object> params,Wrapper<ShangpinxinxiEntity> wrapper);
-   	
 
+	ShangjiaxinxiVo getGoodsById(String shangjiazhanghao);
 }
 

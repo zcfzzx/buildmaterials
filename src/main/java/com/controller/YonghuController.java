@@ -116,6 +116,7 @@ public class YonghuController {
 		YonghuStaticView statisticsView = yonghuService.getStatistics(id);
 		view.setYearCost(statisticsView.getYearCost());
 		view.setMonthCost(statisticsView.getMonthCost());
+		view.setCurrentMonthDiscount(statisticsView.getCurrentMonthDiscount());
         return R.ok().put("data", view);
     }
     

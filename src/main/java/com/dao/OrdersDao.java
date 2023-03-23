@@ -57,4 +57,7 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 	 * @return
 	 */
     List<MonthCountVo> selectBuynumberCount();
+
+	OrdersVO selectStatisticsMonthCostAllByUserId(@Param("userid") Long userid);
+
 }

@@ -57,6 +57,30 @@
         </where>
     </select>
 
+    <select id="selectStatisticsMonthCostAllByUserId"
+            resultType="com.entity.vo.OrdersVO" >
+
+        SELECT
+        sum( CASE month(addtime) WHEN     '1' THEN discounttotal ELSE 0 END) AS "month1",
+        sum(CASE month(addtime) WHEN '2' THEN  discounttotal ELSE  0 END ) AS "month2",
+        sum(CASE month(addtime) WHEN     '3' THEN discounttotal ELSE 0 END) AS "month3",
+        sum( CASE month(addtime) WHEN '4' THEN discounttotal ELSE 0  END) AS "month4",
+        sum(CASE month(addtime) WHEN     '5' THEN discounttotal ELSE 0 END) AS "month5",
+        sum( CASE month(addtime)  WHEN '6' THEN  discounttotal ELSE  0 END) AS "month6",
+        sum( CASE    month(addtime)  WHEN     '7' THEN  discounttotal  ELSE  0  END) AS "month7",
+        sum( CASE    month(addtime)  WHEN '8' THEN   discounttotal  ELSE   0  END ) AS "month8",
+        sum( CASE    month(addtime)  WHEN     '9' THEN  discounttotal ELSE  0 END ) AS "month9",
+        sum( CASE    month(addtime)  WHEN '10' THEN   discounttotal  ELSE   0  END ) AS "month10",
+        sum( CASE    month(addtime)  WHEN     '11' THEN  discounttotal  ELSE   0  END ) AS "month11",
+        sum( CASE    month(addtime) WHEN '12' THEN  discounttotal ELSE   0  END ) AS "month12"
+        FROM
+        orders t
+        <where>
+            t.userid=${userid} and t.status in('已完成','已发货','已支付')
+            and YEAR(addtime)=YEAR(NOW())
+        </where>
+    </select>
+
     <select id="selectStatisticsYearCostByUserId"
             resultType="float" >
 

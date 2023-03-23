@@ -23,4 +23,6 @@ public interface UsersService extends IService<UsersEntity> {
     PageUtils queryPage(Map<String, Object> params, Wrapper<UsersEntity> wrapper);
 
     int selectUserCount();
+
+    List<Float> selectStatisticsMonthCostAllByUserId(Long id);
 }

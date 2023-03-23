@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 import com.entity.view.YonghuView;
+import com.entity.vo.MonthCountVo;
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.OrdersVO;
 import com.entity.view.OrdersView;
@@ -50,4 +51,10 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 	int selectStatisticsYearBuynumByShangjia(@Param("shangjia") String shangjia);
 
 	OrdersVO selectStatistics();
+
+	/**
+	 * 统计销量
+	 * @return
+	 */
+    List<MonthCountVo> selectBuynumberCount();
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
+import com.entity.vo.MonthCountVo;
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.ShangjiaVO;
 import com.entity.view.ShangjiaView;
@@ -30,6 +31,11 @@ public interface ShangjiaDao extends BaseMapper<ShangjiaEntity> {
 	List<ShangjiaView> selectListView(Pagination page,@Param("ew") Wrapper<ShangjiaEntity> wrapper);
 	
 	ShangjiaView selectView(@Param("ew") Wrapper<ShangjiaEntity> wrapper);
-	
+
+	/**
+	 * 商家数量
+	 * @return
+	 */
+    List<MonthCountVo> statisticsMonthCount();
 
 }

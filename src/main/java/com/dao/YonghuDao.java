@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
+import com.entity.vo.MonthCountVo;
 import org.apache.ibatis.annotations.Param;
 import com.entity.vo.YonghuVO;
 import com.entity.view.YonghuView;
@@ -30,5 +31,11 @@ public interface YonghuDao extends BaseMapper<YonghuEntity> {
 	List<YonghuView> selectListView(Pagination page,@Param("ew") Wrapper<YonghuEntity> wrapper);
 	
 	YonghuView selectView(@Param("ew") Wrapper<YonghuEntity> wrapper);
+
+	/**
+	 * 用户数量
+	 * @return
+	 */
+	List<MonthCountVo> statisticsMonthCount();
 
 }

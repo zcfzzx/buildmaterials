@@ -184,17 +184,17 @@
           searchWhere.priceend = this.formSearch.priceend
         }
 	      params['sfsh'] = '是';
-        if (this.curFenlei != '全部') searchWhere.shangpinfenlei = this.curFenlei;
-        this.$http.get('shangpinxinxi/list', {params: Object.assign(params, searchWhere)}).then(res => {
-          if (res.data.code == 0) {
-            this.dataList = res.data.data.list;
-            this.total = res.data.data.total;
-            this.pageSize = res.data.data.pageSize;
-            this.totalPage = res.data.data.totalPage;
+        // if (this.curFenlei != '全部') searchWhere.shangpinfenlei = this.curFenlei;
+        // this.$http.get('shangpinxinxi/list', {params: Object.assign(params, searchWhere)}).then(res => {
+        //   if (res.data.code == 0) {
+        //     this.dataList = res.data.data.list;
+        //     this.total = res.data.data.total;
+        //     this.pageSize = res.data.data.pageSize;
+        //     this.totalPage = res.data.data.totalPage;
 			
-			this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
-          }
-        });
+		// 	this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
+        //   }
+        // });
 		params['shangjiazhanghao'] = JSON.parse(this.$route.query.detailObj).shangjiazhanghao;
 		this.$http.get('shangpinxinxi/getGoodsById', {params: Object.assign(params, searchWhere)}).then(res => {
           if (res.data.code == 0) {

@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -13,7 +14,12 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.entity.UsersEntity;
+import com.entity.view.YonghuStaticView;
 import com.utils.ValidatorUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,7 +112,12 @@ public class YonghuController {
     public R getCurrUser(HttpServletRequest request){
     	Long id = (Long)request.getSession().getAttribute("userId");
         YonghuEntity u = yonghuService.selectById(id);
-        return R.ok().put("data", u);
+		YonghuStaticView view = new YonghuStaticView(u);
+		YonghuStaticView statisticsView = yonghuService.getStatistics(id);
+		view.setYearCost(statisticsView.getYearCost());
+		view.setMonthCost(statisticsView.getMonthCost());
+		view.setCurrentMonthDiscount(statisticsView.getCurrentMonthDiscount());
+        return R.ok().put("data", view);
     }
     
     /**

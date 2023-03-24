@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.entity.view.UsersView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -125,6 +126,7 @@ public class UsersController{
         UsersEntity user = userService.selectById(id);
         return R.ok().put("data", user);
     }
+
     
     /**
      * 获取用户的session用户信息

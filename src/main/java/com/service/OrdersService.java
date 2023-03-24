@@ -2,6 +2,7 @@ package com.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.IService;
+import com.entity.vo.StatisticsVo;
 import com.utils.PageUtils;
 import com.entity.OrdersEntity;
 import java.util.List;
@@ -39,7 +40,11 @@ public interface OrdersService extends IService<OrdersEntity> {
 
     List<Map<String, Object>> selectGroup(Map<String, Object> params,Wrapper<OrdersEntity> wrapper);
 
-
+	/**
+	 * 统计 商家、用户，整个系统的销售量
+	 * @return
+	 */
+	StatisticsVo statisticsList();
 
 }
 

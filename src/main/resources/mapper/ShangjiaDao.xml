@@ -41,6 +41,13 @@
 		resultType="com.entity.view.ShangjiaView" >
 		SELECT * FROM shangjia  shangjia <where> 1=1 ${ew.sqlSegment}</where>
 	</select>
-	
+
+	<select id="statisticsMonthCount" resultType="com.entity.vo.MonthCountVo">
+		SELECT count(id) as 'quantity', month(addtime) as 'currentMonth'
+		FROM shangjia
+		where year(addtime) = year(now())
+		GROUP BY month(addtime)
+		ORDER BY month(addtime) asc
+	</select>
 
 </mapper>

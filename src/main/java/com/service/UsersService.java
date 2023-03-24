@@ -16,10 +16,13 @@ import com.utils.PageUtils;
  * 系统用户
  */
 public interface UsersService extends IService<UsersEntity> {
- 	PageUtils queryPage(Map<String, Object> params);
-    
-   	List<UsersEntity> selectListView(Wrapper<UsersEntity> wrapper);
-   	
-   	PageUtils queryPage(Map<String, Object> params,Wrapper<UsersEntity> wrapper);
-	   	
+    PageUtils queryPage(Map<String, Object> params);
+
+    List<UsersEntity> selectListView(Wrapper<UsersEntity> wrapper);
+
+    PageUtils queryPage(Map<String, Object> params, Wrapper<UsersEntity> wrapper);
+
+    int selectUserCount();
+
+    List<Float> selectStatisticsMonthCostAllByUserId(Long id);
 }

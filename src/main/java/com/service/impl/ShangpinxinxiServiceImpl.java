@@ -1,5 +1,10 @@
 package com.service.impl;
 
+import com.entity.ShangjiaEntity;
+import com.entity.vo.ShangjiaxinxiVo;
+import com.service.ShangjiaService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.List;
@@ -17,10 +22,29 @@ import com.entity.ShangpinxinxiEntity;
 import com.service.ShangpinxinxiService;
 import com.entity.vo.ShangpinxinxiVO;
 import com.entity.view.ShangpinxinxiView;
+import org.springframework.util.ObjectUtils;
 
 @Service("shangpinxinxiService")
 public class ShangpinxinxiServiceImpl extends ServiceImpl<ShangpinxinxiDao, ShangpinxinxiEntity> implements ShangpinxinxiService {
-	
+
+	@Autowired
+	private ShangjiaService shangJiaService;
+
+	@Override
+	public ShangjiaxinxiVo getGoodsById(String shangjiazhanghao){
+		ShangjiaxinxiVo vo = new ShangjiaxinxiVo();
+		ShangjiaEntity byZhangHao = shangJiaService.getByZhangHao(shangjiazhanghao);
+		if(!ObjectUtils.isEmpty(byZhangHao)){
+			BeanUtils.copyProperties(byZhangHao,vo);
+			Wrapper<ShangpinxinxiEntity> wrapper = new EntityWrapper<>();
+			wrapper.eq("shangjiazhanghao",vo.getShangjiazhanghao());
+			List<ShangpinxinxiEntity> list = baseMapper.selectList(wrapper);
+			if(!ObjectUtils.isEmpty(list)){
+				vo.setGoods(list);
+			}
+		}
+		return vo;
+	}
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {

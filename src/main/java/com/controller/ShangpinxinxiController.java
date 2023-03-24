@@ -61,8 +61,12 @@ public class ShangpinxinxiController {
 
     @Autowired
     private OrdersService ordersService;
-    
 
+    @IgnoreAuth
+    @RequestMapping("/getGoodsById")
+    public R getGoodsById(@RequestParam("shangjiazhanghao") String shangjiazhanghao){
+        return R.ok().put("data", shangpinxinxiService.getGoodsById(shangjiazhanghao));
+    }
 
     /**
      * 后端列表

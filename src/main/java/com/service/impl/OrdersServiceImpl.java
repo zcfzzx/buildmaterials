@@ -1,8 +1,12 @@
 package com.service.impl;
 
+import com.dao.ShangjiaDao;
+import com.dao.YonghuDao;
+import com.entity.vo.MonthCountVo;
+import com.entity.vo.StatisticsVo;
 import org.springframework.stereotype.Service;
-import java.util.Map;
-import java.util.List;
+
+import java.util.*;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -17,11 +21,56 @@ import com.entity.OrdersEntity;
 import com.service.OrdersService;
 import com.entity.vo.OrdersVO;
 import com.entity.view.OrdersView;
+import org.springframework.util.ObjectUtils;
+
+import javax.annotation.Resource;
 
 @Service("ordersService")
 public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> implements OrdersService {
-	
-	
+
+	@Resource
+	private YonghuDao yonghuDao;
+
+	@Resource
+	private ShangjiaDao shangjiaDao;
+
+	@Override
+	public StatisticsVo statisticsList(){
+		StatisticsVo vo = new StatisticsVo();
+
+		Calendar calendar = Calendar.getInstance();
+		// 获取当前月
+		int currMonth = calendar.get(Calendar.MONTH) + 1;
+
+		List<Integer> months = buildMonthList(currMonth);
+		List<MonthCountVo> yongHu = yonghuDao.statisticsMonthCount();
+		List<MonthCountVo> shangJia = shangjiaDao.statisticsMonthCount();
+		List<MonthCountVo> buyNumbers = baseMapper.selectBuynumberCount();
+		List<Integer> yongHuCountList = new ArrayList<>();
+		List<Integer> shangJiaCountList = new ArrayList<>();
+		List<Integer> buyNumbersCountList = new ArrayList<>();
+		for (Integer month : months) {
+			MonthCountVo yongHuCountVo = yongHu.stream().filter(f -> f.getCurrentMonth().equals(month)).findFirst().orElse(null);
+			MonthCountVo shangJiaCountVo = shangJia.stream().filter(f -> f.getCurrentMonth().equals(month)).findFirst().orElse(null);
+			MonthCountVo buyNumbersCountVo = buyNumbers.stream().filter(f -> f.getCurrentMonth().equals(month)).findFirst().orElse(null);
+			shangJiaCountList.add(ObjectUtils.isEmpty(yongHuCountVo) ? 0 : yongHuCountVo.getQuantity());
+			yongHuCountList.add(ObjectUtils.isEmpty(shangJiaCountVo) ? 0 : shangJiaCountVo.getQuantity());
+			buyNumbersCountList.add(ObjectUtils.isEmpty(buyNumbersCountVo) ? 0 : buyNumbersCountVo.getQuantity());
+		}
+		vo.setYongHuCountList(yongHuCountList);
+		vo.setShangJiaCountList(shangJiaCountList);
+		vo.setBuyNumberCountList(buyNumbersCountList);
+		return vo;
+	}
+
+	private List<Integer> buildMonthList(int month){
+		List<Integer> monthList = new ArrayList<>();
+		for(int i = 0; i < month; i++){
+			monthList.add(i + 1);
+		}
+		return monthList;
+	}
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<OrdersEntity> page = this.selectPage(
@@ -73,8 +122,5 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> impl
     public List<Map<String, Object>> selectGroup(Map<String, Object> params, Wrapper<OrdersEntity> wrapper) {
         return baseMapper.selectGroup(params, wrapper);
     }
-
-
-
 
 }

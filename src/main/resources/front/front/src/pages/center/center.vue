@@ -48,7 +48,10 @@
 				<div @click="dialogFormVisibleVip = true" :style='{"border":"0","cursor":"pointer","padding":"0 25px","margin":"0 0 0 10px","color":"#333","display":"inline-block","outline":"none","borderRadius":"30px","background":"#f2ecdc","width":"auto","lineHeight":"40px","fontSize":"14px","height":"40px"}'>会员购买</div>
 			</div>
 		  </el-form-item>
-          <el-form-item :style='{"padding":"10px","margin":"0 0 10px","background":"none"}' label="消费记录">
+      
+          <el-form-item :style='{"background":"rgb(138, 164, 189)","padding":"10px","margin":"0 0 10px 40px","width":"1250px"}' label="消费记录">
+          </el-form-item>
+          <el-form-item :style='{"padding":"10px","margin":"0 0 10px","background":"none"}'>
             <div class="EchartPractice">
               <div id="main" ref="main"></div>
             </div>
@@ -385,10 +388,22 @@
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: this.sessionForm.currentMonthDiscount,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5

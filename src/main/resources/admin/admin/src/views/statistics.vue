@@ -8,17 +8,24 @@
       label-width="140px"
     >  
      <el-row>
-    <el-form-item :style='{"padding":"0","margin":"0"}' label="新增用户" >
+    <el-form-item :style='{"padding":"0","margin":"0", "background":"rgb(138, 164, 189)"}' label="新增用户" >
+    </el-form-item>
+    <el-form-item :style='{"padding":"0","margin":"0"}' >
       <div class="EchartPractice">
         <div id="user" class="chart" ref="main"></div>
       </div>
     </el-form-item>
-    <el-form-item :style='{"padding":"0","margin":"0"}' label="新增商家" >
+    
+    <el-form-item :style='{"padding":"0","margin":"0", "background":"rgb(138, 164, 189)"}' label="新增商家" >
+    </el-form-item>
+    <el-form-item :style='{"padding":"0","margin":"0"}' >
       <div class="EchartPractice">
         <div id="shangjia" class="chart"></div>
       </div>
     </el-form-item>
-    <el-form-item :style='{"padding":"0","margin":"0"}' label="销量" >
+    <el-form-item :style='{"padding":"0","margin":"0", "background":"rgb(138, 164, 189)"}' label="销量" >
+    </el-form-item>
+    <el-form-item :style='{"padding":"0","margin":"0"}' >
       <div class="EchartPractice">
         <div id="sales" class="chart"></div>
       </div>
@@ -68,10 +75,22 @@ export default {
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: data.data.yongHuCountList,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5
@@ -95,10 +114,22 @@ export default {
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: data.data.shangJiaCountList,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5
@@ -121,10 +152,22 @@ export default {
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: data.data.buyNumberCountList,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5

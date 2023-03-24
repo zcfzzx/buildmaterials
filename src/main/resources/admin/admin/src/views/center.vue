@@ -65,6 +65,11 @@
 		<el-form-item :style='{"width":"50%","margin":"0 0 20px 0","display":"inline-block"}' v-if="flag=='users'" label="用户名" prop="username">
 			<el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
 		</el-form-item>
+		<el-form-item :style='{"padding":"0","margin":"0"}'>
+			<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#f5b688","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="onUpdateHandler">修 改</el-button>
+		</el-form-item>
+    <el-form-item :style='{"width":"100%","margin":"30px 0 20px 0","display":"inline-block", "background":"rgb(138, 164, 189)"}'   v-if="flag=='shangjia'"  label="报表">
+    </el-form-item>
     <el-form-item :style='{"padding":"0","margin":"0"}' label="销量" v-if="flag=='shangjia'">
       <div class="EchartPractice">
         <div id="main" class="chart" ref="main"></div>
@@ -75,9 +80,6 @@
         <div id="saleMain" class="chart"></div>
       </div>
     </el-form-item>
-		<el-form-item :style='{"padding":"0","margin":"0"}'>
-			<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#f5b688","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="onUpdateHandler">修 改</el-button>
-		</el-form-item>
       </el-row>
     </el-form>
   </div>
@@ -123,10 +125,22 @@ export default {
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: data.data.numLists,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5
@@ -150,10 +164,22 @@ export default {
               }
             },
             series: [{
+              symbolSize:3,//一定要加这个字段才能显示
+              itemStyle:{
+                normal:{
+                  label:{
+                    show:true,
+                    position:'top',
+                    fontSize:11,
+                    textStyle:{                    
+                      color:'black'
+                    }
+                  }
+                }
+              },
               data: data.data.discounttotalLists,
               type: 'line',
               smooth: true,
-              symbol: "none",
               areaStyle: {
                 color: '#344CE9',
                 opacity: 0.5

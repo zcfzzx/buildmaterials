@@ -160,13 +160,16 @@
                             </template>
 					    </el-table-column>
                     </span>
-
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('shangpinxinxi','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
-							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('shangpinxinxi','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('shangpinxinxi','查看评论')" type="primary" size="mini" @click="disscussListHandler(scope.row.id)">查看评论</el-button>
-							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('shangpinxinxi','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+                            <span v-if="roleFlag != '管理员'">
+                            <el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}'
+                                       v-if=" isAuth('shangpinxinxi','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
+                            <el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}'
+                                       v-if="isAuth('shangpinxinxi','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+                            </span>
 						</template>
 					</el-table-column>
 				</el-table>

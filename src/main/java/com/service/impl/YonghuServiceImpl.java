@@ -59,7 +59,6 @@ public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> impl
 		return view;
 	}
 
-
 	private  List<Float> buildCurrentMonthDiscount(OrdersVO vo) {
 		List<Float> monthDiscount = new ArrayList<>();
 		monthDiscount.add(vo.getMonth1());

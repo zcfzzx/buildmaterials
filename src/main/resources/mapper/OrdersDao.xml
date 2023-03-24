@@ -92,7 +92,7 @@
     </select>
 
     <select id="selectStatisticsYearBuynumByShangjia"
-            resultType="float" >
+            resultType="int" >
 
         select sum(t.buynumber) from orders t left join shangpinxinxi s on(t.goodid = s.id)
         <where> s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
@@ -102,13 +102,59 @@
     </select>
 
     <select id="selectStatisticsMonthBuynumByShangjia"
-            resultType="float" >
+            resultType="int" >
 
         select sum(t.buynumber) from orders t left join shangpinxinxi s on(t.goodid = s.id)
         <where> s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
           and DATE_FORMAT( t.addtime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
         </where>
 
+    </select>
+
+    <select id="selectStatisticsMonthBuynumAllByShangjia"
+            resultType="com.entity.vo.OrdersVO" >
+        SELECT
+        sum( CASE month(t.addtime) WHEN     '1' THEN buynumber ELSE 0 END) AS "num1",
+        sum(CASE month(t.addtime) WHEN '2' THEN  buynumber ELSE  0 END ) AS "num2",
+        sum(CASE month(t.addtime) WHEN     '3' THEN buynumber ELSE 0 END) AS "num3",
+        sum( CASE month(t.addtime) WHEN '4' THEN buynumber ELSE 0  END) AS "num4",
+        sum(CASE month(t.addtime) WHEN     '5' THEN buynumber ELSE 0 END) AS "num5",
+        sum( CASE month(t.addtime)  WHEN '6' THEN  buynumber ELSE  0 END) AS "num6",
+        sum( CASE    month(t.addtime)  WHEN     '7' THEN  buynumber  ELSE  0  END) AS "num7",
+        sum( CASE    month(t.addtime)  WHEN '8' THEN   buynumber  ELSE   0  END ) AS "num8",
+        sum( CASE    month(t.addtime)  WHEN     '9' THEN  buynumber ELSE  0 END ) AS "num9",
+        sum( CASE    month(t.addtime)  WHEN '10' THEN   buynumber  ELSE   0  END ) AS "num1-",
+        sum( CASE    month(t.addtime)  WHEN     '11' THEN  buynumber  ELSE   0  END ) AS "num11",
+        sum( CASE    month(t.addtime) WHEN '12' THEN  buynumber ELSE   0  END ) AS "num12"
+        FROM
+            orders t left join shangpinxinxi s on(t.goodid = s.id)
+        <where>
+                    s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
+                and YEAR(t.addtime)=YEAR(NOW())
+        </where>
+    </select>
+
+    <select id="selectStatisticsMonthDiscounttotalAllByShangjia"
+            resultType="com.entity.vo.OrdersVO" >
+        SELECT
+        sum( CASE month(t.addtime) WHEN     '1' THEN discounttotal ELSE 0 END) AS "month1",
+        sum(CASE month(t.addtime) WHEN '2' THEN  discounttotal ELSE  0 END ) AS "month2",
+        sum(CASE month(t.addtime) WHEN     '3' THEN discounttotal ELSE 0 END) AS "month3",
+        sum( CASE month(t.addtime) WHEN '4' THEN discounttotal ELSE 0  END) AS "month4",
+        sum(CASE month(t.addtime) WHEN     '5' THEN discounttotal ELSE 0 END) AS "month5",
+        sum( CASE month(t.addtime)  WHEN '6' THEN  discounttotal ELSE  0 END) AS "month6",
+        sum( CASE    month(t.addtime)  WHEN     '7' THEN  discounttotal  ELSE  0  END) AS "month7",
+        sum( CASE    month(t.addtime)  WHEN '8' THEN   discounttotal  ELSE   0  END ) AS "month8",
+        sum( CASE    month(t.addtime)  WHEN     '9' THEN  discounttotal ELSE  0 END ) AS "month9",
+        sum( CASE    month(t.addtime)  WHEN '10' THEN   discounttotal  ELSE   0  END ) AS "month10",
+        sum( CASE    month(t.addtime)  WHEN     '11' THEN  discounttotal  ELSE   0  END ) AS "month11",
+        sum( CASE    month(t.addtime) WHEN '12' THEN  discounttotal ELSE   0  END ) AS "month12"
+        FROM
+        orders t left join shangpinxinxi s on(t.goodid = s.id)
+        <where>
+            s.shangjiazhanghao = ${shangjia} and t.status in('已完成','已发货','已支付')
+            and YEAR(t.addtime)=YEAR(NOW())
+        </where>
     </select>
 
 

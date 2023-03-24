@@ -6,10 +6,7 @@ import com.entity.vo.MonthCountVo;
 import com.entity.vo.StatisticsVo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -40,7 +37,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> impl
 	@Override
 	public StatisticsVo statisticsList(){
 		StatisticsVo vo = new StatisticsVo();
-		List<Integer> months = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+		Calendar calendar = Calendar.getInstance();
+		// 获取当前月
+		int currMonth = calendar.get(Calendar.MONTH) + 1;
+
+		List<Integer> months = buildMonthList(currMonth);
 		List<MonthCountVo> yongHu = yonghuDao.statisticsMonthCount();
 		List<MonthCountVo> shangJia = shangjiaDao.statisticsMonthCount();
 		List<MonthCountVo> buyNumbers = baseMapper.selectBuynumberCount();
@@ -59,6 +61,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersDao, OrdersEntity> impl
 		vo.setShangJiaCountList(shangJiaCountList);
 		vo.setBuyNumberCountList(buyNumbersCountList);
 		return vo;
+	}
+
+	private List<Integer> buildMonthList(int month){
+		List<Integer> monthList = new ArrayList<>();
+		for(int i = 0; i < month; i++){
+			monthList.add(i + 1);
+		}
+		return monthList;
 	}
 
     @Override

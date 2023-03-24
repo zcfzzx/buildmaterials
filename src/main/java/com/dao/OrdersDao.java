@@ -60,4 +60,7 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 
 	OrdersVO selectStatisticsMonthCostAllByUserId(@Param("userid") Long userid);
 
+	OrdersVO selectStatisticsMonthBuynumAllByShangjia(@Param("shangjia") String shagjia);
+	OrdersVO selectStatisticsMonthDiscounttotalAllByShangjia(@Param("shangjia") String shagjia);
+
 }

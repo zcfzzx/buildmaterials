@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 
 /**
@@ -22,6 +23,26 @@ public class ShangjiaStatisticView extends ShangjiaEntity implements Serializabl
 	private int yearNum;
 
 	private int monthNum;
+
+	private List<Integer> numLists;
+
+	private List<Float> discounttotalLists;
+
+	public List<Float> getDiscounttotalLists() {
+		return discounttotalLists;
+	}
+
+	public void setDiscounttotalLists(List<Float> discounttotalLists) {
+		this.discounttotalLists = discounttotalLists;
+	}
+
+	public List<Integer> getNumLists() {
+		return numLists;
+	}
+
+	public void setNumLists(List<Integer> numLists) {
+		this.numLists = numLists;
+	}
 
 	public int getYearNum() {
 		return yearNum;

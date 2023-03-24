@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.entity.view.ShangjiaStatisticView;
 import com.utils.ValidatorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +109,14 @@ public class ShangjiaController {
     public R getCurrUser(HttpServletRequest request){
     	Long id = (Long)request.getSession().getAttribute("userId");
         ShangjiaEntity u = shangjiaService.selectById(id);
-        return R.ok().put("data", u);
+		ShangjiaStatisticView view = new ShangjiaStatisticView(u);
+		ShangjiaStatisticView shangjiaStatisticView = shangjiaService.selectStatistic(u.getShangjiazhanghao());
+		view.setYearNum(shangjiaStatisticView.getYearNum());
+		view.setMonthNum(shangjiaStatisticView.getMonthNum());
+		view.setNumLists(shangjiaStatisticView.getNumLists());
+		view.setDiscounttotalLists(shangjiaStatisticView.getDiscounttotalLists());
+
+        return R.ok().put("data", view);
     }
     
     /**

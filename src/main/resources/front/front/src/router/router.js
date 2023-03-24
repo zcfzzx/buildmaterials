@@ -27,6 +27,7 @@ import shangpinfenleiAdd from '../pages/shangpinfenlei/add'
 import shangpinxinxiList from '../pages/shangpinxinxi/list'
 import shangpinxinxiDetail from '../pages/shangpinxinxi/detail'
 import shangpinxinxiAdd from '../pages/shangpinxinxi/add'
+import sjshangpinxinxiList from '../pages/sjshangpinxinxi/list'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -135,6 +136,10 @@ export default new VueRouter({
 				{
 					path: 'shangpinxinxiAdd',
 					component: shangpinxinxiAdd
+				},
+				{
+					path: 'sjshangpinxinxi',
+					component: sjshangpinxinxiList
 				},
 			]
 		},

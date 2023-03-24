@@ -12,12 +12,10 @@
 				</el-row>
 
 				<el-row :style='{"margin":"20px 0","display":"flex"}'>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}' v-if="isAuth('messages','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}' v-if="isAuth('messages','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
-
-
-
-
+					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}'
+                               v-if="isAuth('messages','新增')" type="success" @click="addOrUpdateHandler()">新增</el-button>
+					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","minWidth":"120px","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"55px"}'
+                               v-if="isAuth('messages','删除')" :disabled="dataListSelections.length <= 0" type="danger" @click="deleteHandler()">删除</el-button>
 				</el-row>
 			</el-form>
 			
@@ -73,14 +71,16 @@
 					<el-table-column width="300" label="操作">
 						<template slot-scope="scope">
 							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('messages','查看')" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">详情</el-button>
-							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if=" isAuth('messages','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
-
-
-
-
-
-							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('messages','回复')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">回复</el-button>
-							<el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}' v-if="isAuth('messages','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+                            <el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}'
+                                       v-if="isAuth('messages','回复')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">回复</el-button>
+                            <span v-if="roleFlag == '管理员' ">
+                                <el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}'
+                                           v-if="isAuth('messages','删除') " type="danger" size="mini" @click="deleteHandler(scope.row.id)">删除</el-button>
+                            </span>
+                            <span v-else>
+                                <el-button :style='{"border":"0","cursor":"pointer","padding":"0 30px","margin":"0 10px 0 0","backgroundColor":"#fff","color":"#333","backgroundImage":"url(http://codegen.caihongy.cn/20220727/d7a250a4599f4e7d9b11846454a93c80.png)","outline":"none","borderRadius":"4px","width":"auto","fontSize":"14px","backgroundSize":"cover","height":"40px"}'
+                                           v-if=" isAuth('messages','修改')" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">修改</el-button>
+                            </span>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -103,11 +103,6 @@
 		
 		<!-- 添加/修改页面  将父组件的search方法传递给子组件-->
 		<add-or-update v-if="addOrUpdateFlag" :parent="this" ref="addOrUpdate"></add-or-update>
-
-
-
-
-
 	</div>
 </template>
 
@@ -137,8 +132,8 @@ export default {
       chartVisiable4: false,
       chartVisiable5: false,
       addOrUpdateFlag:false,
+      roleFlag:undefined,
       layouts: ["total","prev","pager","next","sizes","jumper"],
-
     };
   },
   created() {
@@ -164,7 +159,6 @@ export default {
     // 分页
     contentPageStyleChange(){
       let arr = []
-
       // if(this.contents.pageTotal) arr.push('total')
       // if(this.contents.pageSizes) arr.push('sizes')
       // if(this.contents.pagePrevNext){
@@ -176,15 +170,11 @@ export default {
       // this.layouts = arr.join()
       // this.contents.pageEachNum = 10
     },
-
-
-
-
-
-
-
-
     init () {
+        let flag = localStorage.getItem("role");
+        flag = flag.substr(1,3);
+        this.roleFlag = flag;
+        console.log(this.roleFlag);
     },
     search() {
       this.pageIndex = 1;

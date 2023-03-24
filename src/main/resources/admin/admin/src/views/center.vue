@@ -65,6 +65,16 @@
 		<el-form-item :style='{"width":"50%","margin":"0 0 20px 0","display":"inline-block"}' v-if="flag=='users'" label="用户名" prop="username">
 			<el-input v-model="ruleForm.username" placeholder="用户名"></el-input>
 		</el-form-item>
+    <el-form-item :style='{"padding":"0","margin":"0"}' label="销量" v-if="flag=='shangjia'">
+      <div class="EchartPractice">
+        <div id="main" class="chart" ref="main"></div>
+      </div>
+    </el-form-item>
+    <el-form-item :style='{"padding":"0","margin":"0"}' label="销售额" v-if="flag=='shangjia'">
+      <div class="EchartPractice">
+        <div id="saleMain" class="chart"></div>
+      </div>
+    </el-form-item>
 		<el-form-item :style='{"padding":"0","margin":"0"}'>
 			<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#f5b688","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="onUpdateHandler">修 改</el-button>
 		</el-form-item>
@@ -75,6 +85,9 @@
 <script>
 // 数字，邮件，手机，url，身份证校验
 import { isNumber,isIntNumer,isEmail,isMobile,isPhone,isURL,checkIdCard } from "@/utils/validate";
+  import Vue from 'vue';
+  import echarts from "echarts";
+  Vue.prototype.$echarts = echarts;
 
 export default {
   data() {
@@ -95,6 +108,59 @@ export default {
     }).then(({ data }) => {
       if (data && data.code === 0) {
         this.ruleForm = data.data;
+        
+          let myEchart = this.$echarts.init(document.getElementById("main"));
+          let option = {
+            xAxis: {
+              data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+              show: true,  //   前提：  y轴肯定是要显示的
+              name: "单位:单",  //  你的单位写在这就可以
+              nameTextStyle: {   //  单位样式
+              fontSize: 10, 	//  字体大小
+              padding: [0,15,4,0]		//  内填充
+              }
+            },
+            series: [{
+              data: data.data.numLists,
+              type: 'line',
+              smooth: true,
+              symbol: "none",
+              areaStyle: {
+                color: '#344CE9',
+                opacity: 0.5
+              }
+            }]
+          };
+          myEchart.setOption(option);
+
+          
+          let saleEchart = this.$echarts.init(document.getElementById("saleMain"));
+          let saleOption = {
+            xAxis: {
+              data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+              show: true,  //   前提：  y轴肯定是要显示的
+              name: "单位:元",  //  你的单位写在这就可以
+              nameTextStyle: {   //  单位样式
+              fontSize: 10, 	//  字体大小
+              padding: [0,15,4,0]		//  内填充
+              }
+            },
+            series: [{
+              data: data.data.discounttotalLists,
+              type: 'line',
+              smooth: true,
+              symbol: "none",
+              areaStyle: {
+                color: '#344CE9',
+                opacity: 0.5
+              }
+            }]
+          };
+          saleEchart.setOption(saleOption);
       } else {
         this.$message.error(data.msg);
       }
@@ -281,4 +347,12 @@ export default {
 	  	  font-size: 14px;
 	  	  height: 120px;
 	  	}
+      
+   .chart {
+    width: 600px;
+    height:400px;
+    margin: auto;
+    margin-top: 10px;
+    float:left;
+  }
 </style>

@@ -42,12 +42,17 @@
 				<div @click="dialogFormVisibleMoney = true" :style='{"border":"0","cursor":"pointer","padding":"0 25px","margin":"0 0 0 10px","color":"#333","display":"inline-block","outline":"none","borderRadius":"30px","background":"#f2ecdc","width":"auto","lineHeight":"40px","fontSize":"14px","height":"40px"}'>点我充值</div>
 			</div>
 		  </el-form-item>
-          <el-form-item class="balance" :style='{"padding":"10px","margin":"0 0 10px","background":"none"}' v-if="userTableName=='yonghu'" label="会员">
+      <el-form-item class="balance" :style='{"padding":"10px","margin":"0 0 10px","background":"none"}' v-if="userTableName=='yonghu'" label="会员">
             <div :style='{"flexWrap":"wrap","display":"flex"}'>
 				<el-input v-model="sessionForm.vip" placeholder="会员" readonly></el-input>
 				<div @click="dialogFormVisibleVip = true" :style='{"border":"0","cursor":"pointer","padding":"0 25px","margin":"0 0 0 10px","color":"#333","display":"inline-block","outline":"none","borderRadius":"30px","background":"#f2ecdc","width":"auto","lineHeight":"40px","fontSize":"14px","height":"40px"}'>会员购买</div>
 			</div>
 		  </el-form-item>
+          <el-form-item :style='{"padding":"10px","margin":"0 0 10px","background":"none"}' label="消费记录">
+            <div class="EchartPractice">
+              <div id="main" ref="main"></div>
+            </div>
+          </el-form-item>
           <el-form-item :style='{"padding":"10px","margin":"0 0 10px","background":"none"}' v-if="userTableName=='shangjia'" label="商家账号" prop="shangjiazhanghao">
             <el-input v-model="sessionForm.shangjiazhanghao" placeholder="商家账号" readonly></el-input>
           </el-form-item>
@@ -211,6 +216,8 @@
 <script>
   import config from '@/config/config'
   import Vue from 'vue'
+  import echarts from "echarts"
+  Vue.prototype.$echarts = echarts
   export default {
     //数据集合
     data() {
@@ -340,6 +347,8 @@
     },
     //方法集合
     methods: {
+      drawChart() {
+      },
       init() {
         if ('yonghu' == this.userTableName) {
           this.dynamicProp.xingbie = '男,女'.split(',');
@@ -362,6 +371,31 @@
                 localStorage.setItem('headportrait', res.data.data.headportrait);
             }
           }
+          let myEchart = this.$echarts.init(document.getElementById("main"));
+          let option = {
+            xAxis: {
+              data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+            },
+            yAxis: {
+              show: true,  //   前提：  y轴肯定是要显示的
+              name: "单位:元",  //  你的单位写在这就可以
+              nameTextStyle: {   //  单位样式
+              fontSize: 10, 	//  字体大小
+              padding: [0,15,4,0]		//  内填充
+              }
+            },
+            series: [{
+              data: this.sessionForm.currentMonthDiscount,
+              type: 'line',
+              smooth: true,
+              symbol: "none",
+              areaStyle: {
+                color: '#344CE9',
+                opacity: 0.5
+              }
+            }]
+          };
+          myEchart.setOption(option);
         });
       },
       onSubmit(formName) {
@@ -500,7 +534,29 @@
             duration: 1500,
         });
       }
+    },
+    mounted(){
+      
+        // let myEchart = this.$echarts.init(document.getElementById("main"));
+        // let option = {
+        //   xAxis: {
+        //     data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        //   },
+        //   yAxis: {},
+        //   series: [{
+        //     data: this.sessionForm.currentMonthDiscount,
+        //     type: 'line',
+        //     smooth: true,
+        //     symbol: "none",
+        //     areaStyle: {
+        //       color: '#344CE9',
+        //       opacity: 0.5
+        //     }
+        //   }]
+        // };
+        // myEchart.setOption(option);
     }
+
   }
 </script>
 
@@ -673,5 +729,12 @@
   	width: 360px;
   	font-size: 14px;
   	height: 40px;
+  }
+   #main {
+    width: 600px;
+    height:400px;
+    margin: auto;
+    margin-top: 10px;
+    float:left;
   }
 </style>

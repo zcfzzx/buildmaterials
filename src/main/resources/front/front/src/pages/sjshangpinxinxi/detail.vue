@@ -61,7 +61,7 @@
 				</div>
 				<div class="item" :style='{"border":"0 dashed #eee","padding":"0","margin":"0 20px 10px","background":"none","borderWidth":"0 0 1px","display":"flex","justifyContent":"spaceBetween"}'>
 					<div class="lable" :style='{"padding":"0 10px","color":"#936837","textAlign":"right","width":"auto","fontSize":"14px","lineHeight":"40px","minWidth":"120px","height":"40px"}'>商家名称</div>
-					<div  :style='{"width":"100%","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#666"}'><a href="javascript:;" @click="toSJDetail('sjshangpinxinxi', detail)">{{detail.shangjiamingcheng}}</a></div>
+					<div  :style='{"width":"100%","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#666"}'>{{detail.shangjiamingcheng}}</div>
 				</div>
 				<div class="item" :style='{"border":"0 dashed #eee","padding":"0","margin":"0 20px 10px","background":"none","borderWidth":"0 0 1px","display":"flex","justifyContent":"spaceBetween"}'>
 					<div class="lable" :style='{"padding":"0 10px","color":"#936837","textAlign":"right","width":"auto","fontSize":"14px","lineHeight":"40px","minWidth":"120px","height":"40px"}'>点击次数</div>
@@ -438,9 +438,6 @@
           }
         });
       },
-	toSJDetail(path, item) {
-		this.$router.push({path: '/index/' + path, query: {detailObj: JSON.stringify(item)}});
-	},
       addCart() {
         if (this.isInCart) {
           this.$message.error('该商品已经添加到购物车');

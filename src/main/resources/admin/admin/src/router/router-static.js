@@ -20,6 +20,7 @@ import center from '@/views/center'
     import orders from '@/views/modules/orders/list'
     import config from '@/views/modules/config/list'
     import shangjia from '@/views/modules/shangjia/list'
+    import statistics from '@/views/statistics'
 
 
 //2.配置路由   注意：名字
@@ -48,6 +49,11 @@ const routes = [{
       name: '个人信息',
       component: center,
       meta: {icon:'', title:'center'}
+    }, {
+      path: '/statistics',
+      name: '报表',
+      component: statistics,
+      meta: {icon:'', title:'statistics'}
     }
       ,{
 	path: '/news',

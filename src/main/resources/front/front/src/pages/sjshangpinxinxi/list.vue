@@ -4,49 +4,51 @@
 		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
 			<el-breadcrumb-item>首页</el-breadcrumb-item>
 			<el-breadcrumb-item v-for="(item, index) in breadcrumbItem" :key="index">{{item.name}}</el-breadcrumb-item>
+			<el-breadcrumb-item >欢迎进入我的店铺</el-breadcrumb-item>
 		</el-breadcrumb>
 	</div>
+	<!-- <div :style='{"border":"1px dashed #7e6b5a","padding":"0 20px","margin":"20px 7%","outline":"1px solid #7e6b5a","borderRadius":"0","alignItems":"center","outlineOffset":"2px","background":"#efefef","display":"flex","width":"86%","height":"56px"}' class="breadcrumb-preview">
+		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
+			<el-breadcrumb-item>商家信息</el-breadcrumb-item>
+			<el-breadcrumb-item v-for="(item, index) in breadcrumbItem" :key="index">{{item.name}}</el-breadcrumb-item>
+		</el-breadcrumb>
+	</div> -->
 	
 	<div class="list-preview" :style='{"width":"100%","margin":"0 auto","position":"relative","flexWrap":"wrap","background":"none","display":"flex"}'>
-        <div class="category-1" :class="{ 'fixed-style': isFixed }" :style='{"padding":"40px 0 0","flexWrap":"wrap","background":"none","display":"flex","width":"100%","justifyContent":"center","height":"auto"}'>
-            <div class="item" :class="swiperIndex == '-1' ? 'active' : ''" @click="getList(1, '全部')" :plain="isPlain">全部</div>
+        <!-- <div class="category-1" :class="{ 'fixed-style': isFixed }" :style='{"padding":"40px 0 0","flexWrap":"wrap","background":"none","display":"flex","width":"100%","justifyContent":"center","height":"auto"}'>
+            <div class="item" :class="swiperIndex == '-1' ? 'active' : ''" @click="getList(1, '全部')" :plain="isPlain">全部</div> -->
             <!-- 商品分类导航 -->
-            <div class="item" :class="swiperIndex == index ? 'active' : ''" v-for="(item, index) in fenlei" :key="index"
+            <!-- <div class="item" :class="swiperIndex == index ? 'active' : ''" v-for="(item, index) in fenlei" :key="index"
                  @click="getList(1, item, 'btn' + index)" :ref="'btn' + index" plain>{{item}}</div>
-        </div>
+        </div> -->
         <div style="height: 94px" v-if="isFixed"></div>
 
         <el-form :inline="true" :model="formSearch" class="list-form-pv" :class="{ 'fixed-style2': isFixed2 }" :style='{"padding":"30px 20px ","margin":"20px 7% 0","alignItems":"center","flexWrap":"wrap","background":"url(http://codegen.caihongy.cn/20230206/544f501163914411bf89e5cb898e10ac.png) no-repeat center bottom,linear-gradient(30deg, rgba(255,255,255,1) 0%, rgba(207,193,176,1) 20%, rgba(246,236,223,1) 50%, rgba(207,193,176,1) 80%, rgba(255,255,255,1) 100%),#fff","display":"flex","width":"86%","justifyContent":"center","height":"auto"}'>
           <el-form-item :style='{"alignItems":"center","margin":"0 4px 0 0","display":"flex"}'>
-            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>商品名称</div>
-            <el-input v-model="formSearch.shangpinmingcheng" placeholder="商品名称" clearable></el-input>
+            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>商家名称: {{shangjia.shangjiamingcheng}}</div>
           </el-form-item>
           <el-form-item :style='{"alignItems":"center","margin":"0 4px 0 0","display":"flex"}'>
-            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>品牌</div>
-            <el-input v-model="formSearch.pinpai" placeholder="品牌" clearable></el-input>
+            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>联系人: {{shangjia.lianxiren}}</div>
           </el-form-item>
           <el-form-item :style='{"alignItems":"center","margin":"0 4px 0 0","display":"flex"}'>
-            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>价格</div>
-            <el-input v-model="formSearch.pricestart" placeholder="最小价格" clearable></el-input>
+            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>联系电话: {{shangjia.lianxidianhua}}</div>
           </el-form-item>
           <el-form-item :style='{"alignItems":"center","margin":"0 4px 0 0","display":"flex"}'>
-            <el-input v-model="formSearch.priceend" placeholder="最大价格" clearable></el-input>
+            <div class="lable" v-if="true" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>商家地址: {{shangjia.shangjiadizhi}}</div>
           </el-form-item>
-          <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","color":"#fff","minWidth":"90px","outline":"none","borderRadius":"30px","background":"#937937","width":"auto","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
-          <el-button v-if="isAuth('shangpinxinxi','新增')" :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","color":"#fff","minWidth":"90px","outline":"none","borderRadius":"30px","background":"#c99d6b","width":"auto","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="add('/index/shangpinxinxiAdd')"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-circle-plus-outline"></i>添加</el-button>
         </el-form>
         <div style="height: 122px" v-if="isFixed2"></div>
 
         <div class="list" :style='{"padding":"0 0 20px","margin":"20px 7% 0","background":"none","flex":"1","width":"86%","minWidth":"900px","order":"3"}'>
             <!-- 样式一 -->
             <div class="list1 index-pv1" :style='{"padding":"0","margin":"30px 0 0","overflow":"hidden","background":"none","display":"block","width":"100%","height":"auto"}'>
-                <div :style='{"margin":"0 3% 20px 0","flexWrap":"wrap","background":"none","display":"flex","width":"30%","position":"relative","float":"left","justifyContent":"space-between","height":"auto"}' v-for="(item, index) in dataList" :key="index"  class="list-item animation-box">
-                    <img :style='{"padding":"30px","margin":"0 0 10px","objectFit":"cover","background":"url(http://codegen.caihongy.cn/20230207/346e413dce8f4515a5a57219df032ccd.png) no-repeat left top / auto 100%,url(http://codegen.caihongy.cn/20230207/e75d04594fa6401b9993f023e829f7b8.png) no-repeat right bottom / auto 100%","display":"block","width":"100%","height":"260px"}' @click="toDetail(item)" v-if="item.tupian && item.tupian.substr(0,4)=='http'" :src="item.tupian" class="image" />
-                    <img :style='{"padding":"30px","margin":"0 0 10px","objectFit":"cover","background":"url(http://codegen.caihongy.cn/20230207/346e413dce8f4515a5a57219df032ccd.png) no-repeat left top / auto 100%,url(http://codegen.caihongy.cn/20230207/e75d04594fa6401b9993f023e829f7b8.png) no-repeat right bottom / auto 100%","display":"block","width":"100%","height":"260px"}' @click="toDetail(item)" v-else :src="baseUrl + (item.tupian?item.tupian.split(',')[0]:'')" class="image" />
+                <div :style='{"margin":"0 3% 20px 0","flexWrap":"wrap","background":"none","display":"flex","width":"30%","position":"relative","float":"left","justifyContent":"space-between","height":"auto"}' v-for="(item, index) in dataList" :key="index" @click="toDetail(item)" class="list-item animation-box">
+                    <img :style='{"padding":"30px","margin":"0 0 10px","objectFit":"cover","background":"url(http://codegen.caihongy.cn/20230207/346e413dce8f4515a5a57219df032ccd.png) no-repeat left top / auto 100%,url(http://codegen.caihongy.cn/20230207/e75d04594fa6401b9993f023e829f7b8.png) no-repeat right bottom / auto 100%","display":"block","width":"100%","height":"260px"}' v-if="item.tupian && item.tupian.substr(0,4)=='http'" :src="item.tupian" class="image" />
+                    <img :style='{"padding":"30px","margin":"0 0 10px","objectFit":"cover","background":"url(http://codegen.caihongy.cn/20230207/346e413dce8f4515a5a57219df032ccd.png) no-repeat left top / auto 100%,url(http://codegen.caihongy.cn/20230207/e75d04594fa6401b9993f023e829f7b8.png) no-repeat right bottom / auto 100%","display":"block","width":"100%","height":"260px"}' v-else :src="baseUrl + (item.tupian?item.tupian.split(',')[0]:'')" class="image" />
                     <div v-if="item.price" :style='{"padding":"4px 10px","color":"red","textAlign":"center","width":"100%","lineHeight":"24px","fontSize":"14px","order":"2"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
                     <div :style='{"padding":"4px 0","margin":"0 auto","whiteSpace":"nowrap","overflow":"hidden","color":"#fff","textAlign":"center","background":"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(207,193,176,1) 20%, rgba(166,147,124,1) 50%, rgba(207,193,176,1) 80%, rgba(255,255,255,1) 100%),#a6937c","width":"86%","lineHeight":"24px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">{{item.shangpinmingcheng}}</div>
                     <div :style='{"padding":"4px 0","margin":"0 auto","whiteSpace":"nowrap","overflow":"hidden","color":"#fff","textAlign":"center","background":"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(207,193,176,1) 20%, rgba(166,147,124,1) 50%, rgba(207,193,176,1) 80%, rgba(255,255,255,1) 100%),#a6937c","width":"86%","lineHeight":"24px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">品牌:{{item.pinpai}}</div>
-                    <div :style='{"padding":"4px 0","margin":"0 auto","whiteSpace":"nowrap","overflow":"hidden","color":"#fff","textAlign":"center","background":"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(207,193,176,1) 20%, rgba(166,147,124,1) 50%, rgba(207,193,176,1) 80%, rgba(255,255,255,1) 100%),#a6937c","width":"86%","lineHeight":"24px","fontSize":"14px","textOverflow":"ellipsis"}' class="name "><a href="javascript:;" @click="toSJDetail(item)">商家名称:{{item.shangjiamingcheng}}</a></div>
+                    <div :style='{"padding":"4px 0","margin":"0 auto","whiteSpace":"nowrap","overflow":"hidden","color":"#fff","textAlign":"center","background":"linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(207,193,176,1) 20%, rgba(166,147,124,1) 50%, rgba(207,193,176,1) 80%, rgba(255,255,255,1) 100%),#a6937c","width":"86%","lineHeight":"24px","fontSize":"14px","textOverflow":"ellipsis"}' class="name ">商家名称:{{item.shangjiamingcheng}}</div>
                 </div>
             </div>
 
@@ -97,7 +99,7 @@
         baseUrl: '',
         breadcrumbItem: [
           {
-            name: '商品信息'
+            name: '商家商品信息'
           }
         ],
         formSearch: {
@@ -108,6 +110,7 @@
         fenlei: [],
         hotList: [],
         dataList: [],
+		shangjia:{},
         total: 1,
         pageSize: 12,
 		pageSizes: [10,20,30,50],
@@ -192,6 +195,19 @@
 			this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
           }
         });
+		params['shangjiazhanghao'] = JSON.parse(this.$route.query.detailObj).shangjiazhanghao;
+		this.$http.get('shangpinxinxi/getGoodsById', {params: Object.assign(params, searchWhere)}).then(res => {
+          if (res.data.code == 0) {
+            this.dataList = res.data.data.goods;
+			this.shangjia = res.data.data;
+            // this.total = res.data.data.total;
+            // this.pageSize = res.data.data.pageSize;
+            // this.totalPage = res.data.data.totalPage;
+			
+			// this.pageSizes = [this.pageSize, this.pageSize*2, this.pageSize*3, this.pageSize*5];
+          }
+        });
+
       },
       curChange(page) {
         this.getList(page,this.curFenlei);
@@ -204,9 +220,6 @@
       },
       toDetail(item) {
         this.$router.push({path: '/index/shangpinxinxiDetail', query: {detailObj: JSON.stringify(item)}});
-      },
-      toSJDetail(item) {
-        this.$router.push({path: '/index/sjshangpinxinxi', query: {detailObj: JSON.stringify(item)}});
       },
       getScrollTop() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop

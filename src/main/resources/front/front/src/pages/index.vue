@@ -1,6 +1,10 @@
 <template>
 	<div class="main-containers">
-		<div class="top-container" :style='{"boxShadow":"0 0px 0px rgba(64, 158, 255, .3)","padding":"0 20px 0 120px","borderColor":"#936837","alignItems":"center","display":"flex","justifyContent":"space-between","overflow":"hidden","top":"0","left":"0","background":"url(http://codegen.caihongy.cn/20230208/b3d599c40b114881b081c4468440bae5.png) no-repeat center bottom,#f6f5f3","borderWidth":"10px 0 0","width":"100%","position":"fixed","borderStyle":"solid","height":"75px","zIndex":"1002"}'>
+		<div class="top-container" :style='{"boxShadow":"0 0px 0px rgba(64, 158, 255, .3)",
+		"padding":"0 20px 0 120px","borderColor":"#936837","alignItems":"center","display":"flex",
+		"justifyContent":"space-between","overflow":"hidden","top":"0","left":"0",
+		"background":"url(http://codegen.caihongy.cn/20230208/b3d599c40b114881b081c4468440bae5.png) no-repeat center bottom," +
+		 "#f6f5f3","borderWidth":"10px 0 0","width":"100%","position":"fixed","borderStyle":"solid","height":"75px","zIndex":"1002"}'>
 			<img v-if='false' :style='{"width":"44px","objectFit":"cover","borderRadius":"100%","display":"block","height":"44px"}' src='http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg'>
 			<div v-if="true" :style='{"color":"#000","fontSize":"18px"}'>
                 <img src="http://localhost:8080/springbootq4h82/upload/logo.png" alt="" style="z-index: 1009;width: 125px">
@@ -31,7 +35,7 @@
 					</el-menu-item>
 				</el-menu>
 			</div>
-			
+
 			<div class="banner-preview" :style='{"width":"100%","padding":"130px 7% 0","height":"auto"}'>
 				<el-carousel :style='{"width":"100%","margin":"0 auto"}' trigger="click" indicator-position="inside" arrow="always" type="card" direction="horizontal" height="480px" :autoplay="false" :interval="3000" :loop="true">
 					<el-carousel-item :style='{"width":"50%","borderRadius":"10px","background":"#fff","height":"100%"}' v-for="item in carouselList" :key="item.id">
@@ -39,22 +43,27 @@
 					</el-carousel-item>
 				</el-carousel>
 			</div>
-			
+
 			<router-view></router-view>
-			
+
 			<div class="bottom-preview" :style='{"minHeight":"150px","padding":"20px 0","alignItems":"center","background":"#6E563A","flexDirection":"column","display":"flex","width":"100%","justifyContent":"center"}'>
 			    <img :style='{"width":"44px","objectFit":"cover","borderRadius":"100%","display":"none","height":"44px"}' src="http://codegen.caihongy.cn/20201114/7856ba26477849ea828f481fa2773a95.jpg" >
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'></div>
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'></div>
-			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'></div>
+			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'>
+					<a href="https://baike.baidu.com/item/%E7%99%BE%E5%BA%A6%E7%88%B1%E9%87%87%E8%B4%AD/23348131" class="link" target="_blank">产品百科</a>   |   <a href="https://baike.baidu.com/item/%E7%99%BE%E5%BA%A6%E7%88%B1%E9%87%87%E8%B4%AD/23348131" class="link" target="_blank">关于我们</a>
+					   |   <a href="https://www.baidu.com/duty/" class="link" target="_blank">平台声明</a>    
+					|   <a href="" class="link" target="_blank">投诉反馈</a>   |   
+					<a href="http://b2bmarketing.baidu.com/wanchuan" class="link" target="_blank">生态合作</a></div>
+			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'>联系方式: 13345444444   0755-7745889   邮箱: 55445544@qq.com</div>
+			    <div :style='{"margin":"10px 0 0","fontSize":"14px","lineHeight":"28px","color":"#333"}'>互联网建筑信息服务资格证书（京）-经营性-2017-0020  建筑器械网络交易服务第三方平台备案：（京）网械平台备字（2020） 第00002号
+京ICP证030173号  京公网安备11000002000001号</div>
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
 export default {
     data() {
 		return {

@@ -148,7 +148,7 @@ export default {
                 localStorage.setItem('sessionTable', this.loginForm.tableName);
                 localStorage.setItem('role', this.role);
                 localStorage.setItem('keyPath', this.$config.indexNav.length+2);
-                this.$router.push('/index/center');
+                this.$router.push('/index/home');
                 this.$message({
                   message: '登录成功',
                   type: 'success',

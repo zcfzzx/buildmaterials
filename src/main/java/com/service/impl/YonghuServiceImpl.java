@@ -49,13 +49,15 @@ public class YonghuServiceImpl extends ServiceImpl<YonghuDao, YonghuEntity> impl
 
 	@Override
 	public YonghuStaticView getStatistics(long id) {
-		float yearCost = ordersDao.selectStatisticsYearCostByUserId(id);
-		float monthCost = ordersDao.selectStatisticsMonthCostByUserId(id);
+		Float yearCost = ordersDao.selectStatisticsYearCostByUserId(id);
+		Float monthCost = ordersDao.selectStatisticsMonthCostByUserId(id);
 		OrdersVO vo = ordersDao.selectStatisticsMonthCostAllByUserId(id);
 		YonghuStaticView view = new YonghuStaticView();
-		view.setMonthCost(monthCost);
-		view.setYearCost(yearCost);
-		view.setCurrentMonthDiscount(buildCurrentMonthDiscount(vo));
+		if(yearCost != null && monthCost != null) {
+			view.setMonthCost(monthCost);
+			view.setYearCost(yearCost);
+			view.setCurrentMonthDiscount(buildCurrentMonthDiscount(vo));
+		}
 		return view;
 	}
 

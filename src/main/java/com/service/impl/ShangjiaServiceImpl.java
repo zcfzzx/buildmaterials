@@ -79,8 +79,8 @@ public class ShangjiaServiceImpl extends ServiceImpl<ShangjiaDao, ShangjiaEntity
 	@Override
 	public ShangjiaStatisticView selectStatistic(String shangjiazhanghao) {
 		//统计商家本周，当月，今年销售数量
-		int monthBuynumber = ordersDao.selectStatisticsMonthBuynumByShangjia(shangjiazhanghao);
-		int yearBuynumber = ordersDao.selectStatisticsYearBuynumByShangjia(shangjiazhanghao);
+		Integer monthBuynumber = ordersDao.selectStatisticsMonthBuynumByShangjia(shangjiazhanghao);
+		Integer yearBuynumber = ordersDao.selectStatisticsYearBuynumByShangjia(shangjiazhanghao);
 		ShangjiaStatisticView view = new ShangjiaStatisticView();
 		view.setMonthNum(monthBuynumber);
 		view.setYearNum(yearBuynumber);

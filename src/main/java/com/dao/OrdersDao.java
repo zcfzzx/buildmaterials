@@ -42,13 +42,13 @@ public interface OrdersDao extends BaseMapper<OrdersEntity> {
 
     List<Map<String, Object>> selectGroup(@Param("params") Map<String, Object> params,@Param("ew") Wrapper<OrdersEntity> wrapper);
 
-	float selectStatisticsMonthCostByUserId(@Param("userid") Long userid);
+	Float selectStatisticsMonthCostByUserId(@Param("userid") Long userid);
 
-	float selectStatisticsYearCostByUserId(@Param("userid") Long userid);
+	Float selectStatisticsYearCostByUserId(@Param("userid") Long userid);
 
-	int selectStatisticsMonthBuynumByShangjia(@Param("shangjia") String shangjia);
+	Integer selectStatisticsMonthBuynumByShangjia(@Param("shangjia") String shangjia);
 
-	int selectStatisticsYearBuynumByShangjia(@Param("shangjia") String shangjia);
+	Integer selectStatisticsYearBuynumByShangjia(@Param("shangjia") String shangjia);
 
 	OrdersVO selectStatistics();
 
